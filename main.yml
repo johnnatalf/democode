@@ -1,0 +1,42 @@
+name: DemoNewCD
+on:
+  workflow_dispatch:
+  
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run a one-line script
+        run: echo Hello, world!
+        
+        
+  deploy-dev:
+    runs-on: ubuntu-latest
+    environment:
+      name: dev
+      url: 'https://portal.ifma.edu.br/inicio'
+    needs: build
+    steps:
+      - name: Run a one-line script
+        run: echo Deploy Dev
+      
+      
+  deploy-homologacao:
+    runs-on: ubuntu-latest
+    environment:
+      name: homologacao
+      url: 'https://portal.ifma.edu.br/inicio'
+    needs: deploy-dev
+    steps:
+      - name: Run a one-line script
+        run: echo Deploy homologacao
+      
+  deploy-producao:
+    runs-on: ubuntu-latest
+    environment:
+      name: producao
+      url: 'https://portal.ifma.edu.br/inicio'
+    needs: deploy-homologacao
+    steps:
+          - name: Run a one-line script
+            run: echo Deploy producao
